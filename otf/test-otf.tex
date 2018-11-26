@@ -1,0 +1,64 @@
+\documentclass[dvipdfmx,media=ebook,paper=a4]{review-jsbook}
+\makeatletter
+\RequirePackage[T1]{fontenc}\RequirePackage{textcomp}%T1/TS1
+\RequirePackage{lmodern}
+\input t1lmr.fd
+\input t1lmss.fd
+\DeclareFontShape{T1}{lmr}{l}{n}{<->sub*lmr/m/n}{}
+\DeclareFontShape{T1}{lmss}{eb}{n}{<->sub*lmss/bx/n}{}
+
+\RequirePackage[uplatex,deluxe,jis2004]{otf}
+\DeclareRobustCommand\ltseries{\not@math@alphabet\ltseries\relax
+  \romanseries\ltdefault\kanjiseries\ltdefault\selectfont}
+\DeclareRobustCommand\ebseries{\not@math@alphabet\ebseries\relax
+  \romanseries\ebdefault\kanjiseries\ebdefault\selectfont}
+\DeclareRobustCommand\mgfamily{\not@math@alphabet\mgfamily\mathmg\relax
+  \romanfamily\sfdefault\kanjifamily\mgdefault\selectfont}
+\DeclareRobustCommand\textmc[1]{%
+    \relax\ifmmode \expandafter\nfss@text \fi{\mcfamily #1}}
+\DeclareRobustCommand\textgt[1]{%
+    \relax\ifmmode \expandafter\nfss@text \fi{\gtfamily\sffamily #1}}
+\DeclareTextFontCommand{\textlt}{\mcfamily\ltseries}%%<- \gtfamilyで\ltseriesの場合を考慮していない。
+\DeclareTextFontCommand{\texteb}{\gtfamily\sffamily\ebseries}%%<- \mcfamilyで\ebseriesの場合を考慮していない。
+\DeclareRelationFont{\otf@JYn}{hmc}{l}{}{\otf@OTorT1}{lmr}{l}{}
+\DeclareRelationFont{\otf@JTn}{hmc}{l}{}{\otf@OTorT1}{lmr}{l}{}
+\DeclareRelationFont{\otf@JYn}{hmc}{m}{}{\otf@OTorT1}{lmr}{m}{}
+\DeclareRelationFont{\otf@JTn}{hmc}{m}{}{\otf@OTorT1}{lmr}{m}{}
+\DeclareRelationFont{\otf@JYn}{hmc}{bx}{}{\otf@OTorT1}{lmr}{bx}{}
+\DeclareRelationFont{\otf@JTn}{hmc}{bx}{}{\otf@OTorT1}{lmr}{bx}{}
+\DeclareRelationFont{\otf@JYn}{hgt}{m}{}{\otf@OTorT1}{lmss}{m}{}
+\DeclareRelationFont{\otf@JTn}{hgt}{m}{}{\otf@OTorT1}{lmss}{m}{}
+\DeclareRelationFont{\otf@JYn}{hgt}{bx}{}{\otf@OTorT1}{lmss}{bx}{}
+\DeclareRelationFont{\otf@JTn}{hgt}{bx}{}{\otf@OTorT1}{lmss}{bx}{}
+\DeclareRelationFont{\otf@JYn}{hgt}{eb}{}{\otf@OTorT1}{lmss}{bx}{}
+\DeclareRelationFont{\otf@JTn}{hgt}{eb}{}{\otf@OTorT1}{lmss}{bx}{}
+\DeclareRelationFont{\otf@JYn}{mg}{m}{}{\otf@OTorT1}{lmss}{m}{}
+\DeclareRelationFont{\otf@JTn}{mg}{m}{}{\otf@OTorT1}{lmss}{m}{}
+
+\makeatother
+\begin{document}
+
+\begin{tabular}{|l|l|l|l|l|l|}\hline
+ファミリ & 平文 & ltseries & mdseries & bfseries & ebseries\\ \hline\hline
+mcfamily & {\mcfamily あa0!} & {\mcfamily\ltseries あa0!} & {\mcfamily\mdseries あa0!} & {\mcfamily\bfseries あa0!} & {\mcfamily\ebseries あa0!} \\ \hline
+gtfamily & {\gtfamily あa0!} & {\gtfamily\ltseries あa0!} & {\gtfamily\mdseries あa0!} & {\gtfamily\bfseries あa0!} & {\gtfamily\ebseries あa0!} \\ \hline
+mgfamily & {\mgfamily あa0!} & {\mgfamily\ltseries あa0!} & {\mgfamily\mdseries あa0!} & {\mgfamily\bfseries あa0!} & {\mgfamily\ebseries あa0!} \\ \hline
+rmfamily & {\rmfamily あa0!} & {\rmfamily\ltseries あa0!} & {\rmfamily\mdseries あa0!} & {\rmfamily\bfseries あa0!} & {\rmfamily\ebseries あa0!} \\ \hline
+sffamily & {\sffamily あa0!} & {\sffamily\ltseries あa0!} & {\sffamily\mdseries あa0!} & {\sffamily\bfseries あa0!} & {\sffamily\ebseries あa0!} \\ \hline
+ttfamily & {\ttfamily あa0!} & {\ttfamily\ltseries あa0!} & {\ttfamily\mdseries あa0!} & {\ttfamily\bfseries あa0!} & {\ttfamily\ebseries あa0!} \\ \hline
+\end{tabular}
+
+\begin{itemize}
+\item textmc \textmc{あいう abc012!}
+\item textgt \textgt{あいう abc012!}
+\item textmg \textmg{あいう abc012!}
+\item textlt \textlt{あいう abc012!}
+\item textbf \textbf{あいう abc012!}
+\item texteb \texteb{あいう abc012!}
+\item textrm \textrm{あいう abc012!}
+\item textsf \textsf{あいう abc012!}
+\item texttt \texttt{あいう abc012!}
+\item textit \textit{あいう abc012!}
+\end{itemize}
+
+\end{document}
