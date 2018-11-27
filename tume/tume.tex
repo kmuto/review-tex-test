@@ -1,0 +1,119 @@
+\documentclass[media=print,paper=b5,fontsize=12Q,head_space=20mm,gutter=20mm,number_of_lines=40,footskip=20mm,twocolumn,dvipdfmx]{review-jsbook}
+\usepackage[dvipdfmx]{graphicx}
+
+\makeatletter
+
+% 柱罫線
+% ベースから3mm下げ。太さ0.2mm
+\def\ps@headers@underline#1{\smash{\rule[-3mm]{#1}{0.2mm}}}
+% ノンブル表現
+\def\ps@footer@page{\textsf{\thepage}}
+
+% 普通紙面のレイアウト
+\def\ps@tbpage{%
+  \def\@oddhead{\hbox to \textwidth{%
+        \hfil\leftmark}% 本来rightmarkだが、ここでは同じもの(章名)を入れておく
+        \llap{\ps@headers@underline{\paperwidth}}%
+        \hss}
+  \def\@oddfoot{\hbox to \textwidth{%
+      \hfil\ps@footer@page}\hss}
+  \def\@evenhead{\hbox to \textwidth{%
+        \rlap{\ps@headers@underline{\paperwidth}}%
+        \leftmark\hfil}\hss}
+  \def\@evenfoot{\hbox to \textwidth{%
+      \ps@footer@page\hfil}\hss}
+}
+
+% 章扉のレイアウト
+\def\ps@plainhead{%
+  \def\@oddhead{}
+  \def\@oddfoot{\hbox to \textwidth{%
+      \hfil\ps@footer@page}\hss}
+  \def\@evenhead{}
+  \def\@evenfoot{\hbox to \textwidth{%
+      \ps@footer@page\hfil}\hss}
+}
+
+% 位置調整はしないツメレイアウト
+\def\ps@sidemarkpage{%
+  \def\@oddhead{\hbox to \textwidth{%
+        \hfil\leftmark}% 本来rightmarkだが、ここでは同じもの(章名)を入れておく
+        \llap{\ps@headers@underline{\paperwidth}}%
+        \hss}
+  \def\@oddfoot{\hbox to \textwidth{%
+      \hfil\ps@footer@page}\hss}
+  \def\@evenhead{\tb@settume%
+        \hbox to \textwidth{%
+        \rlap{\ps@headers@underline{\paperwidth}}%
+        \leftmark\hfil}\hss}
+  \def\@evenfoot{\hbox to \textwidth{%
+      \ps@footer@page\hfil}\hss}
+}
+
+\newdimen\TUMEoffset % カウンタごとの移動量
+\newdimen\TUMEht \TUMEht=38mm  % ツメの高さを38mmにしている（読み込む画像の高さ）
+\def\tb@settume{\ifnum\c@chapter>0
+  \hbox to \z@{\kern-15mm           % 適当に横の位置を調節して
+    \vbox to \z@{\TUMEoffset=35mm     % 適当に縦の位置を調節して
+      \@tempdima=\value{chapter}\TUMEht  % \chapterのカウンタ × ツメの高さ
+      \advance\TUMEoffset -\TUMEht
+      \advance\TUMEoffset \@tempdima  % ツメの原点に移動量加える
+      \vskip\TUMEoffset
+      \mbox{A}\vss}\hss}\fi}
+%includegraphics{part\@arabic\c@part.eps}
+
+% ダミー行
+\def\makelines#1{%
+  \@tempcnta\z@\relax
+  \def\@makeline@f@size{\f@size}%
+  \@whilenum\@tempcnta<#1\do{%
+    \advance\@tempcnta\@ne\relax
+    \noindent\rlap{\the\@tempcnta}\nobreak
+    \makelines@neline\par}%
+}
+\def\makelines@unit@#10#2\relax{%
+  \ifx!#2!\relax □\else\relax ■\fi}%
+\newcounter{makelines@unit}
+\def\makelines@neline{%
+  \c@makelines@unit\@ne
+%  \@whilenum\c@makelines@unit<\dimexpr(\textwidth + \Cwd)/\Cwd\do{% 1列のとき
+  \@whilenum\c@makelines@unit<\dimexpr(\textwidth)/\Cwd / 2\do{%
+    \expandafter\makelines@unit@\the\c@makelines@unit0\relax
+  \advance\c@makelines@unit\@ne}%
+}
+
+% 基本のページスタイルの選定
+\pagestyle{tbpage}
+
+\makeatother
+
+\begin{document}
+
+\chapter{章1}
+
+\section{節1-1}
+
+\makelines{28}
+
+\makelines{30}
+
+\clearpage
+\thispagestyle{sidemarkpage}
+
+\makelines{39}
+
+\makelines{39}
+
+\clearpage
+
+\section{節1-2}
+
+\chapter{章2}
+
+\section{節2-1}
+
+\clearpage
+
+\section{節2-2}
+
+\end{document}

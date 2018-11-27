@@ -1,9 +1,4 @@
 #!/bin/sh
-RV=$HOME/review
-if [ ! -f review-jsbook.cls ]; then
-  ln -s $RV/templates/latex/review-jsbook/review-jsbook.cls
-  ln -s $RV/templates/latex/review-jsbook/jsbook.cls
-  ln -s $RV/templates/latex/review-jsbook/gentombow.sty
-fi
+. ../def.sh
 ptex2pdf -l -u test-jsbook.tex
 ptex2pdf -l -u test-reviewbook.tex
